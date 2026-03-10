@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Student";
+}
+<form asp-action="Index" method="post">
+    <label>Nhập Id:</label>
+    <input type="text" name="Id" />
+<br /> <br />
+    <label>Nhập họ tên:</label>
+    <input type="text" name="FullName" />
+<br /> <br />
+    <label>Nhập địa chỉ:</label>
+    <input type="text" name="Address" />
+<br /> <br />
+    <input type="submit" value="Gửi dữ liệu" />
+</form>
+<h1>@ViewBag.infoStudent</h1>
