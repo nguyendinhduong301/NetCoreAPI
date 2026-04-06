@@ -1,0 +1,26 @@
+@model Student
+
+<h2>Thêm sinh viên</h2>
+
+<form asp-action="Create" method="post">
+    <label>Mã SV</label>
+    <input asp-for="StudentCode" />
+    <span asp-validation-for="StudentCode" style="color:red"></span>
+<br/>
+    <label>Họ tên</label>
+    <input asp-for="FullName" />    
+    <span asp-validation-for="FullName" style="color:red"></span>
+<br/>
+    <label>Tuổi</label>
+    <input asp-for="Age" />
+    <span asp-validation-for="Age" style="color:red"></span>
+<br/>
+    <label>Email</label>
+    <input asp-for="Email" />
+    <span asp-validation-for="Email" style="color:red"></span>
+    <button type="submit">Lưu</button>
+
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -11,6 +11,6 @@ namespace FirstWebMVC.Data
         }
 
         // Khai báo các bảng trong database
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Student> Students { get; set; }    
     }
 }

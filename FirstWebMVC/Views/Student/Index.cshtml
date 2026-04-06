@@ -1,16 +1,56 @@
 @{
     ViewData["Title"] = "Student";
 }
-<form asp-action="Index" method="post">
-    <label>Nhập Id:</label>
-    <input type="text" name="Id" />
-<br /> <br />
-    <label>Nhập họ tên:</label>
+@model IEnumerable<FirstWebMVC.Models.Student>
+<form asp-action="Create" method="post">
+
+    <label>Mã SV:</label>
+    <input type="text" name="StudentCode" />
+    <br /><br />
+
+    <label>Họ tên:</label>
     <input type="text" name="FullName" />
-<br /> <br />
-    <label>Nhập địa chỉ:</label>
-    <input type="text" name="Address" />
-<br /> <br />
+    <br /><br />
+
+    <label>Tuổi:</label>
+    <input type="number" name="Age" />
+    <br /><br />
+
+    <label>Email:</label>
+    <input type="text" name="Email" />
+    <br /><br />
+
     <input type="submit" value="Gửi dữ liệu" />
+
 </form>
+<br/> <br/>
 <h1>@ViewBag.infoStudent</h1>
+
+<h2>Danh sách Sinh viên</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Mã SV</th>
+        <th>Họ tên</th>
+        <th>Tuổi</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Id</td>
+        <td>@item.StudentCode</td>
+        <td>@item.FullName</td>
+        <td>@item.Age</td>
+        <td>@item.Email</td>
+        <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+    </tr>
+}
+
+</table>
