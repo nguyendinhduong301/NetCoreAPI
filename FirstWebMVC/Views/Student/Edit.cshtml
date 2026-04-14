@@ -25,6 +25,11 @@
 <label>Email</label>
 <input type="text" class="form-control" name="Email" value="@Model.Email" />
 </div>
+<div class="form-group">
+<label asp-for="FacultyId" class="control-label"></label>
+<select asp-for="FacultyId" class="form-control" asp-items="ViewBag.FacultyId"></select>
+<span asp-validation-for="FacultyId" class="text-danger"></span>
+</div>
 <br/>
 <button type="submit" class="btn btn-primary">Submit</button>
 </form>

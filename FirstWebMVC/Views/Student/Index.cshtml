@@ -1,7 +1,7 @@
+@model IEnumerable<FirstWebMVC.Models.ViewModels.StudentVM>
 @{
     ViewData["Title"] = "Student";
 }
-@model IEnumerable<FirstWebMVC.Models.Student>
 <form asp-action="Create" method="post">
 
     <label>Mã SV:</label>
@@ -25,7 +25,6 @@
 </form>
 <br/> <br/>
 <h1>@ViewBag.infoStudent</h1>
-
 <h2>Danh sách Sinh viên</h2>
 
 <table class="table table-bordered">
@@ -44,6 +43,7 @@
         <td>@item.Id</td>
         <td>@item.StudentCode</td>
         <td>@item.FullName</td>
+        <td>@item.FacultyName</td>
         <td>@item.Age</td>
         <td>@item.Email</td>
         <td>
@@ -52,5 +52,4 @@
             </td>
     </tr>
 }
-
 </table>

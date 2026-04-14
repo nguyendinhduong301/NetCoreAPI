@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using FirstWebMVC.Data;
 using FirstWebMVC.Models;
 using Microsoft.EntityFrameworkCore;
+using FirstWebMVC.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FirstWebMVC.Controllers
 {
@@ -10,23 +12,33 @@ namespace FirstWebMVC.Controllers
         private readonly ApplicationDbContext _context = context;
         public async Task<IActionResult> Index()
         {
-               var students = _context.Students.ToList();
-
-            return View(students);
+                return View(await _context.Students.ToListAsync());
+            var result = await _context.Students
+                            .Select(s => new StudentVM
+                            {
+                                StudentCode = s.StudentCode,
+                                FullName = s.FullName,
+                                FacultyName = s.Faculty!.FacultyName
+                            })
+                            .ToListAsync();
+            return View(result);
         }
     public IActionResult Create()
         {
+            ViewData["FacultyId"] = new SelectList(_context.Faculties, "FacultyId", "FacultyName");
             return View();
         }
     [HttpPost]
-        public async Task<IActionResult> Create(Student std)
+    [ValidateAntiForgeryToken]
+         public async Task<IActionResult> Create([Bind("StudentCode,FullName,FacultyId")] Student student)
         {if (ModelState.IsValid)
         {
-            _context.Students.Add(std);
+            _context.Students.Add(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        return View(std);
+        ViewData["FacultyId"] = new SelectList(_context.Faculties, "FacultyId", "FacultyName", student.FacultyId);
+        return View(student);
         }
         public async Task<IActionResult> Edit(int id)
 {
@@ -35,15 +47,28 @@ namespace FirstWebMVC.Controllers
     {
     return View("NotFound");
     }
+            ViewData["FacultyId"] = new SelectList(_context.Faculties, "FacultyId", "FacultyName", student.FacultyId);
             return View(student);
 }
     [HttpPost]
-        public async Task<IActionResult> Edit(Student std)
-        {
-            _context.Students.Update(std);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(int id, [Bind("Id,StudentCode,FullName,FacultyId")] Student student)
+{
+    if (id != student.Id)
+    {
+        return View("NotFound");
+    }
+
+    if (ModelState.IsValid)
+    {
+        _context.Students.Update(student);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    ViewData["FacultyId"] = new SelectList(_context.Faculties, "Id", "FacultyName", student.FacultyId);
+    return View(student);
+}
 public async Task<IActionResult> Delete(int id)
 {
     var student = await _context.Students.FindAsync(id);

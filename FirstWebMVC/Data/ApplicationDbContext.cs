@@ -9,8 +9,9 @@ namespace FirstWebMVC.Data
             : base(options)
         {
         }
-
-        // Khai báo các bảng trong database
-        public DbSet<Student> Students { get; set; }    
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
+        }
     }
-}
+        // Khai báo các bảng trong database
+    
