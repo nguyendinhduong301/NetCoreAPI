@@ -21,7 +21,7 @@ namespace FirstWebMVC.Models
         [Required(ErrorMessage = "Email không được để trống")]
         [EmailAddress(ErrorMessage = "Email không hợp lệ")]
         public string Email { get; set; } = "default";
-        public string FacultyId { get; set; } = default!;
+        public string? FacultyId { get; set; } = default!;
         [ForeignKey("FacultyId")]
         public virtual Faculty? Faculty { get; set; } = default!;
         
