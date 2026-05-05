@@ -365,3 +365,8 @@ C:\Users\DELL\NetCoreAPI\FirstWebMVC\obj\Debug\net10.0\refint\FirstWebMVC.dll
 C:\Users\DELL\NetCoreAPI\FirstWebMVC\obj\Debug\net10.0\FirstWebMVC.pdb
 C:\Users\DELL\NetCoreAPI\FirstWebMVC\obj\Debug\net10.0\FirstWebMVC.genruntimeconfig.cache
 C:\Users\DELL\NetCoreAPI\FirstWebMVC\obj\Debug\net10.0\ref\FirstWebMVC.dll
+C:\Users\DELL\NetCoreAPI\FirstWebMVC\bin\Debug\net10.0\EPPlus.dll
+C:\Users\DELL\NetCoreAPI\FirstWebMVC\bin\Debug\net10.0\EPPlus.Interfaces.dll
+C:\Users\DELL\NetCoreAPI\FirstWebMVC\bin\Debug\net10.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\DELL\NetCoreAPI\FirstWebMVC\bin\Debug\net10.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\DELL\NetCoreAPI\FirstWebMVC\bin\Debug\net10.0\runtimes\win\lib\net10.0\System.Security.Cryptography.Pkcs.dll

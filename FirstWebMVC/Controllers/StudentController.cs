@@ -4,16 +4,64 @@ using FirstWebMVC.Models;
 using Microsoft.EntityFrameworkCore;
 using FirstWebMVC.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using OfficeOpenXml;
 
 namespace FirstWebMVC.Controllers
 {
     public class StudentController(ApplicationDbContext context) : Controller
     {
         private readonly ApplicationDbContext _context = context;
+        [HttpGet]
+public IActionResult ImportExcel()
+{
+    return View();
+}
+[HttpPost]
+public IActionResult ImportExcel(IFormFile file)
+{
+    if (file == null || file.Length == 0)
+    {
+        ViewBag.Message = "Vui lòng chọn file!";
+        return View();
+    }
+
+    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+    using (var stream = new MemoryStream())
+    {
+        file.CopyTo(stream);
+
+        using (var package = new ExcelPackage(stream))
+        {
+            var worksheet = package.Workbook.Worksheets[0];
+            int rowCount = worksheet.Dimension.Rows;
+
+            for (int row = 2; row <= rowCount; row++)
+            {
+                int age = 0;
+                int.TryParse(worksheet.Cells[row, 3].Text, out age);
+
+                var student = new Student
+                {
+                    StudentCode = worksheet.Cells[row, 1].Text,
+                    FullName = worksheet.Cells[row, 2].Text,
+                    Age = age,
+                    Email = worksheet.Cells[row, 4].Text
+                };
+
+                _context.Students.Add(student);
+            }
+
+            _context.SaveChanges();
+        }
+    }
+
+    ViewBag.Message = "Import thành công!";
+    return View();
+}
         public async Task<IActionResult> Index()
         {
-                return View(await _context.Students.ToListAsync());
-            var result = await _context.Students
+                 var result = await _context.Students
                             .Select(s => new StudentVM
                             {
                                 StudentCode = s.StudentCode,
@@ -33,8 +81,8 @@ namespace FirstWebMVC.Controllers
          public async Task<IActionResult> Create([Bind("StudentCode,FullName,FacultyId")] Student student)
         {if (ModelState.IsValid)
         {
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
+            _context.Students.Add(student); //quản lí trạng thái dữ liệu
+            await _context.SaveChangesAsync(); //lưu vào csdl
             return RedirectToAction(nameof(Index));
         }
         ViewData["FacultyId"] = new SelectList(_context.Faculties, "FacultyId", "FacultyName", student.FacultyId);

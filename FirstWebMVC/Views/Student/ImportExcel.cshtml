@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = "Import Excel";
+}
+
+<h2>Import dữ liệu Student từ Excel</h2>
+
+@if (ViewBag.Message != null)
+{
+    <p style="color:red">@ViewBag.Message</p>
+}
+
+<form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+    <div>
+        <label>Chọn file Excel:</label>
+        <input type="file" name="file" accept=".xlsx" />
+    </div>
+
+    <br />
+
+    <button type="submit">Upload và lưu</button>
+</form>
